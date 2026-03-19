@@ -36,13 +36,56 @@ Step 5: **Security Foundation
 The security of RSA relies on the difficulty of factoring large numbers; thus, choosing sufficiently large prime numbers for \( p \) and \( q \) is crucial for security.
 
 ## Program:
+```
+#include <stdio.h>
+#include <string.h>
 
+long long power(long long base, long long exp, long long mod) {
+    long long result = 1;
+    while (exp > 0) {
+        result = (result * base) % mod;
+        exp--;
+    }
+    return result;
+}
+
+int main() {
+
+    int p = 3, q = 11;
+    int n = p * q;      // 33
+    int phi = 20;
+    int e = 3;
+    int d = 7;
+
+    char text[100];
+    printf("Enter message: ");
+    scanf("%s",text);
+    int len = strlen(text);
+    long long enc[100];
+
+    printf("\nEncrypted:\n");
+    for (int i = 0; i < len; i++) {
+        int m = text[i] - 'a';     // convert character to 0–25
+        enc[i] = power(m, e, n);
+        printf("%lld ", enc[i]);
+    }
+
+    printf("\n\nDecrypted:\n");
+    for (int i = 0; i < len; i++) {
+        int dec = power(enc[i], d, n);
+        printf("%c", dec + 'a');   // convert number back to character
+    }
+
+    printf("\n");
+    return 0;
+}
+
+```
 
 
 
 ## Output:
-
-
+<img width="1748" height="675" alt="image" src="https://github.com/user-attachments/assets/860779d8-9707-4b69-b5e7-01e109ad3bd8" />
 
 ## Result:
  The program is executed successfully.
